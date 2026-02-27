@@ -121,21 +121,21 @@ def index():
 
 @app.post("/add")
 def add():
-    kind = request.form.get("kind", "expense")
-    amount = request.form.get("amount", "0")
-    category = request.form.get("category", "Inne").strip() or "Inne"
-    note = request.form.get("note", "").strip()
-    date = request.form.get("date", datetime.now().strftime("%Y-%m-%d")).strip()
+        kind = request.form.get("kind", "expense")
+        amount = request.form.get("amount", "0")
+        category = request.form.get("category", "Inne").strip() or "Inne"
+        note = request.form.get("note", "").strip()
+        date = request.form.get("date", datetime.now().strftime("%Y-%m-%d")).strip()
 
-    conn = db()
-    conn.execute(
+        conn = db()
+        conn.execute(
         "INSERT INTO transactions(kind, amount_grosz, category, note, date) VALUES (?,?,?,?,?)",
         (kind, grosze(amount), category, note, date)
     )
-    conn.commit()
-    conn.close()
-init_db()
-    return redirect("/")
+        conn.commit()
+        conn.close()
+        init_db()
+        return redirect("/")
 
 if __name__ == "__main__":
     init_db()
