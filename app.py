@@ -134,6 +134,7 @@ def add():
     )
     conn.commit()
     conn.close()
+init_db()
     return redirect("/")
 
 if __name__ == "__main__":
